@@ -16,7 +16,8 @@ public class CloudVendorController {
     public CloudVendorController(CloudVendorService cloudVendorService) {
         this.cloudVendorService = cloudVendorService;
     }
-    @GetMapping("{vendorId}")
+    @GetMapping("/{vendorId}")
+
     public ResponseEntity<Object> getVendorDetails(@PathVariable("vendorId") String vendorId){
         return  ResponseHandler.responseBuilder("Requested Vendor Details given here", HttpStatus.OK,cloudVendorService.getCloudVendor(vendorId));
     }
