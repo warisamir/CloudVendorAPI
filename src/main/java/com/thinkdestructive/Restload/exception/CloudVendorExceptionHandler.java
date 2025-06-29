@@ -2,6 +2,7 @@ package com.thinkdestructive.Restload.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,5 +49,13 @@ public class CloudVendorExceptionHandler {
                 HttpStatus.NOT_FOUND
         );
         return new ResponseEntity<>(cloudVendorException,HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Object> handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex){
+        Map<String,Object>error= new HashMap<>();
+        error.put("Error", "Method not Allowed");
+        error.put("Message",ex.getMessage());
+        error.put("status", HttpStatus.METHOD_NOT_ALLOWED.value());
+        return new ResponseEntity<>(error, HttpStatus.METHOD_NOT_ALLOWED);
     }
 }

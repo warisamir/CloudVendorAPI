@@ -21,4 +21,5 @@ public class CloudVendor {
     @NotBlank(message = "Address is required")
     private String vendorAddress;
     private String vendorPhonenum;
+
 }
