@@ -16,4 +16,13 @@ public class CloudVendorExceptionHandler {
         );
         return new ResponseEntity<>(cloudVendorException,HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(value = {NoCloudVendorExistException.class})
+    public ResponseEntity<Object> NoCloudVendorExistException(NoCloudVendorExistException noCloudVendorExistException){
+        CloudVendorException cloudVendorException  = new CloudVendorException(
+                noCloudVendorExistException.getMessage(),
+                noCloudVendorExistException.getCause(),
+                HttpStatus.NOT_FOUND
+        );
+        return new ResponseEntity<>(cloudVendorException,HttpStatus.NOT_FOUND);
+    }
 }

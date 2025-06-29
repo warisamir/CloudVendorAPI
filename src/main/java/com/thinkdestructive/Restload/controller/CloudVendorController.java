@@ -16,13 +16,13 @@ public class CloudVendorController {
     public CloudVendorController(CloudVendorService cloudVendorService) {
         this.cloudVendorService = cloudVendorService;
     }
-    @GetMapping("/{vendorId}")
 
+    @GetMapping("/{vendorId}")
     public ResponseEntity<Object> getVendorDetails(@PathVariable("vendorId") String vendorId){
         return  ResponseHandler.responseBuilder("Requested Vendor Details given here", HttpStatus.OK,cloudVendorService.getCloudVendor(vendorId));
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public List<CloudVendor> getAllVendorDetails(){
         return cloudVendorService.getAllCloudVendor();
     }
@@ -41,5 +41,10 @@ public class CloudVendorController {
     public String deleteCloudVendorDetails(@PathVariable("vendorId") String vendorId){
         cloudVendorService.deleteCloudVendor(vendorId);
         return "cloud vendor Delete successfully";
+    }
+    @DeleteMapping("/deleteAll")
+    public String deleteCloudVendorDetails(){
+        cloudVendorService.deleteAllCloudVendor();
+        return "All vendor list is cleared Successfully";
     }
 }
