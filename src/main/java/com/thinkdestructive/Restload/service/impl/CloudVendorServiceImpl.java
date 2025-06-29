@@ -1,13 +1,11 @@
 package com.thinkdestructive.Restload.service.impl;
-
-import com.thinkdestructive.Restload.exception.CloudVendorException;
 import com.thinkdestructive.Restload.exception.CloudVendorNotFoundException;
 import com.thinkdestructive.Restload.exception.NoCloudVendorExistException;
 import com.thinkdestructive.Restload.model.CloudVendor;
 import com.thinkdestructive.Restload.repository.CloudVendorRepository;
 import com.thinkdestructive.Restload.service.CloudVendorService;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.server.NotAcceptableStatusException;
 import java.util.List;
 
 @Service
@@ -18,6 +16,9 @@ public class CloudVendorServiceImpl implements CloudVendorService {
     }
     @Override
     public String createCloudVendor(CloudVendor cloudVendor) {
+        if(cloudVendorRepository.findById(cloudVendor.getVendorId()).isPresent()){
+            throw new NotAcceptableStatusException("you are not allowed to create vendor with same vendor id");
+        }
         cloudVendorRepository.save(cloudVendor);
         return "Success";
     }
